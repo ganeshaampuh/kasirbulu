@@ -28,7 +28,7 @@ export default function LoginPage() {
       setLoading(false)
     } else {
       if (isSignUp) {
-        setError('Check your email for the confirmation link!')
+        setError('Cek email Anda untuk tautan konfirmasi!')
       } else {
         router.push('/dashboard')
       }
@@ -40,11 +40,11 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <h1 className="text-2xl font-bold mb-6 text-center">
-          {isSignUp ? 'Sign Up' : 'Login'}
+          {isSignUp ? 'Daftar' : 'Masuk'}
         </h1>
 
         {error && (
-          <div className={`p-3 rounded mb-4 text-sm ${error.includes('Check your email')
+          <div className={`p-3 rounded mb-4 text-sm ${error.includes('Cek email')
             ? 'bg-green-100 text-green-700'
             : 'bg-red-100 text-red-700'
             }`}>
@@ -69,7 +69,7 @@ export default function LoginPage() {
 
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
+              Kata Sandi
             </label>
             <input
               id="password"
@@ -87,12 +87,12 @@ export default function LoginPage() {
             disabled={loading}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md disabled:opacity-50"
           >
-            {loading ? 'Loading...' : isSignUp ? 'Sign Up' : 'Login'}
+            {loading ? 'Memuat...' : isSignUp ? 'Daftar' : 'Masuk'}
           </button>
         </form>
 
         <div className="mt-4 text-center text-sm">
-          {isSignUp ? "Already have an account? " : "Don't have an account? "}
+          {isSignUp ? 'Sudah punya akun? ' : 'Belum punya akun? '}
           <button
             onClick={() => {
               setIsSignUp(!isSignUp)
@@ -100,13 +100,13 @@ export default function LoginPage() {
             }}
             className="text-blue-600 hover:text-blue-700 font-medium"
           >
-            {isSignUp ? 'Login' : 'Sign Up'}
+            {isSignUp ? 'Masuk' : 'Daftar'}
           </button>
         </div>
 
         <div className="mt-6 text-center">
           <Link href="/" className="text-sm text-gray-600 hover:text-gray-700">
-            ← Back to Home
+            ← Kembali ke Beranda
           </Link>
         </div>
       </div>

@@ -25,7 +25,7 @@ export interface Category {
 
 export interface Transaction {
   id: string
-  transaction_number: string
+  transaction_number?: string
   total: number
   payment_method: string
   created_at: string
@@ -35,6 +35,7 @@ export interface TransactionItem {
   id: string
   transaction_id: string
   product_id: string
+  product_name?: string
   quantity: number
   unit_price: number
   line_total: number
