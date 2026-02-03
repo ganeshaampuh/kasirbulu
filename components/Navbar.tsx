@@ -46,6 +46,12 @@ export default function Navbar() {
               >
                 Transaksi
               </Link>
+              <Link
+                href="/settings"
+                className="px-3 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+              >
+                Pengaturan
+              </Link>
             </div>
           )}
 
@@ -123,6 +129,13 @@ export default function Navbar() {
                 className="block px-3 py-2.5 rounded-lg text-base font-medium hover:bg-blue-700 transition-colors"
               >
                 Transaksi
+              </Link>
+              <Link
+                href="/settings"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-3 py-2.5 rounded-lg text-base font-medium hover:bg-blue-700 transition-colors"
+              >
+                Pengaturan
               </Link>
               <div className="border-t border-blue-500 pt-3 mt-3">
                 <div className="px-3 py-2 text-sm text-blue-100">{user.email}</div>

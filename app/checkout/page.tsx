@@ -18,7 +18,7 @@ export default function CheckoutPage() {
   const { items, addItem, removeItem, updateQuantity, clearCart, getTotal } = useCart()
 
   const total = getTotal()
-  const cashReceivedNum = parseFloat(cashReceived) || 0
+  const cashReceivedNum = parseFloat(cashReceived.replace(/\./g, '').replace(/,/g, '.')) || 0
   const change = cashReceivedNum - total
   const canCompleteSale = cashReceivedNum >= total && items.length > 0
 
@@ -303,13 +303,19 @@ export default function CheckoutPage() {
                         Uang Diterima
                       </label>
                       <input
-                        type="number"
+                        type="text"
                         placeholder="Masukkan jumlah uang"
                         value={cashReceived}
-                        onChange={(e) => setCashReceived(e.target.value)}
+                        onChange={(e) => {
+                          const val = e.target.value.replace(/\D/g, '')
+                          const numVal = parseInt(val)
+                          if (!isNaN(numVal)) {
+                             setCashReceived(numVal.toLocaleString('id-ID'))
+                          } else {
+                             setCashReceived('')
+                          }
+                        }}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg font-semibold"
-                        min="0"
-                        step="1000"
                       />
                     </div>
 

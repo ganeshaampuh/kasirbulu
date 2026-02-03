@@ -39,10 +39,21 @@ export default function DashboardPage() {
     const todayCount = todayTransactions?.length || 0
 
     // Get low stock products
+    let threshold = 10
+    if (typeof window !== 'undefined') {
+      const savedSettings = localStorage.getItem('kasir_bulu_settings')
+      if (savedSettings) {
+        const parsed = JSON.parse(savedSettings)
+        if (parsed.lowStockThreshold !== undefined) {
+          threshold = Number(parsed.lowStockThreshold)
+        }
+      }
+    }
+
     const { count: lowStockCount } = await supabase
       .from('products')
       .select('*', { count: 'exact', head: true })
-      .lt('stock_quantity', 10)
+      .lt('stock_quantity', threshold)
 
     // Get recent transactions
     const { data: recentTransactions } = await supabase

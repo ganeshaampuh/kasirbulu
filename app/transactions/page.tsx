@@ -17,10 +17,42 @@ export default function TransactionsPage() {
   const [selectedTransaction, setSelectedTransaction] = useState<(TransactionWithItems & { transaction_items: any[] }) | null>(null)
   const [startDate, setStartDate] = useState<Date | null>(null)
   const [endDate, setEndDate] = useState<Date | null>(null)
+  const [secretCounter, setSecretCounter] = useState(0)
 
   useEffect(() => {
     fetchTransactions()
   }, [])
+
+  useEffect(() => {
+    if (secretCounter >= 5) {
+      handleDeleteTransaction()
+    }
+  }, [secretCounter])
+
+  const handleDeleteTransaction = async () => {
+    if (!selectedTransaction || !window.confirm('Apakah Anda yakin ingin menghapus transaksi ini? Tindakan ini tidak dapat dibatalkan.')) {
+      setSecretCounter(0)
+      return
+    }
+
+    const { error } = await supabase
+      .from('transactions')
+      .delete()
+      .eq('id', selectedTransaction.id)
+
+    if (error) {
+      alert('Gagal menghapus transaksi: ' + error.message)
+    } else {
+      alert('Transaksi berhasil dihapus')
+      setSelectedTransaction(null)
+      fetchTransactions()
+    }
+    setSecretCounter(0)
+  }
+
+  const handleHeaderClick = () => {
+    setSecretCounter(prev => prev + 1)
+  }
 
   useEffect(() => {
     filterTransactions()
@@ -284,12 +316,15 @@ export default function TransactionsPage() {
               {/* Header */}
               <div className="px-6 py-4 border-b border-gray-200">
                 <div className="flex items-start justify-between">
-                  <div>
+                  <div className="flex-1 cursor-pointer select-none" onClick={handleHeaderClick}>
                     <h2 className="text-lg font-semibold text-gray-900">Detail Transaksi</h2>
                     <p className="text-sm text-gray-500 mt-0.5">{selectedTransaction.transaction_number}</p>
                   </div>
                   <button
-                    onClick={() => setSelectedTransaction(null)}
+                    onClick={() => {
+                      setSelectedTransaction(null)
+                      setSecretCounter(0)
+                    }}
                     className="text-gray-400 hover:text-gray-600"
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
