@@ -17,21 +17,12 @@ export default function TransactionsPage() {
   const [selectedTransaction, setSelectedTransaction] = useState<(TransactionWithItems & { transaction_items: any[] }) | null>(null)
   const [startDate, setStartDate] = useState<Date | null>(null)
   const [endDate, setEndDate] = useState<Date | null>(null)
-  const [secretCounter, setSecretCounter] = useState(0)
-
   useEffect(() => {
     fetchTransactions()
   }, [])
 
-  useEffect(() => {
-    if (secretCounter >= 5) {
-      handleDeleteTransaction()
-    }
-  }, [secretCounter])
-
   const handleDeleteTransaction = async () => {
     if (!selectedTransaction || !window.confirm('Apakah Anda yakin ingin menghapus transaksi ini? Tindakan ini tidak dapat dibatalkan.')) {
-      setSecretCounter(0)
       return
     }
 
@@ -47,11 +38,6 @@ export default function TransactionsPage() {
       setSelectedTransaction(null)
       fetchTransactions()
     }
-    setSecretCounter(0)
-  }
-
-  const handleHeaderClick = () => {
-    setSecretCounter(prev => prev + 1)
   }
 
   useEffect(() => {
@@ -316,15 +302,12 @@ export default function TransactionsPage() {
               {/* Header */}
               <div className="px-6 py-4 border-b border-gray-200">
                 <div className="flex items-start justify-between">
-                  <div className="flex-1 cursor-pointer select-none" onClick={handleHeaderClick}>
+                  <div>
                     <h2 className="text-lg font-semibold text-gray-900">Detail Transaksi</h2>
                     <p className="text-sm text-gray-500 mt-0.5">{selectedTransaction.transaction_number}</p>
                   </div>
                   <button
-                    onClick={() => {
-                      setSelectedTransaction(null)
-                      setSecretCounter(0)
-                    }}
+                    onClick={() => setSelectedTransaction(null)}
                     className="text-gray-400 hover:text-gray-600"
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -381,8 +364,14 @@ export default function TransactionsPage() {
                 </div>
               </div>
 
-              {/* Footer with Print Button */}
-              <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
+              {/* Footer with Print and Delete Buttons */}
+              <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 flex gap-3">
+                <button
+                  onClick={handleDeleteTransaction}
+                  className="flex-1 px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium text-sm transition-colors"
+                >
+                  Hapus Transaksi
+                </button>
                 <Receipt
                   transaction={selectedTransaction}
                   onClose={() => setSelectedTransaction(null)}
