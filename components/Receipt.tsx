@@ -14,23 +14,23 @@ export default function Receipt({ transaction, onClose }: ReceiptProps) {
   return (
     <>
       <div className="print-only">
-        <div id="receipt" className="w-[58mm] mx-auto bg-white p-2 text-xs">
+        <div id="receipt" className="w-[72mm] mx-auto bg-white p-[2mm] text-[11px] leading-tight" style={{ fontFamily: 'monospace' }}>
           {/* Header */}
-          <div className="text-center mb-3">
-            <h1 className="font-bold text-sm mb-1">KASIR BULU</h1>
-            <p className="text-[10px]">Pet Shop POS</p>
+          <div className="text-center mb-2">
+            <h1 className="font-bold text-[13px] mb-1">KASIR BULU</h1>
+            <p className="text-[9px]">Pet Shop POS</p>
           </div>
 
-          <div className="border-b border-dashed border-gray-300 mb-2"></div>
+          <div className="border-b border-dashed border-gray-400 mb-[2mm]"></div>
 
           {/* Transaction Info */}
-          <div className="mb-2">
+          <div className="mb-[2mm]">
             <div className="flex justify-between">
               <span>No:</span>
               <span>{transaction.transaction_number || `ID-${transaction.id.slice(0, 8)}`}</span>
             </div>
             <div className="flex justify-between">
-              <span>Tanggal:</span>
+              <span>Tgl:</span>
               <span>
                 {new Date(transaction.created_at).toLocaleString('id-ID', {
                   dateStyle: 'short',
@@ -46,56 +46,56 @@ export default function Receipt({ transaction, onClose }: ReceiptProps) {
             </div>
           </div>
 
-          <div className="border-b border-dashed border-gray-300 mb-2"></div>
+          <div className="border-b border-dashed border-gray-400 mb-[2mm]"></div>
 
           {/* Items */}
-          <div className="mb-2">
+          <div className="mb-[2mm]">
             {transaction.transaction_items?.map((item, index) => (
-              <div key={index} className="mb-1">
+              <div key={index} className="mb-[1mm]">
                 <div className="flex justify-between">
                   <span className="font-medium">
                     {item.product_name || `Item ${index + 1}`}
                   </span>
                 </div>
                 <div className="flex justify-between text-[10px] text-gray-600">
-                  <span>{item.quantity} x Rp {item.unit_price.toLocaleString('id-ID')}</span>
-                  <span>Rp {item.line_total.toLocaleString('id-ID')}</span>
+                  <span>{item.quantity} x {item.unit_price.toLocaleString('id-ID')}</span>
+                  <span>{item.line_total.toLocaleString('id-ID')}</span>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="border-b border-dashed border-gray-300 mb-2"></div>
+          <div className="border-b border-dashed border-gray-400 mb-[2mm]"></div>
 
           {/* Total */}
-          <div className="flex justify-between font-bold text-sm mb-1">
+          <div className="flex justify-between font-bold text-[12px] mb-[1mm]">
             <span>TOTAL</span>
-            <span>Rp {transaction.total.toLocaleString('id-ID')}</span>
+            <span>{transaction.total.toLocaleString('id-ID')}</span>
           </div>
 
           {transaction.payment_received !== undefined && transaction.payment_received > 0 && (
             <>
-              <div className="flex justify-between text-xs mb-1">
+              <div className="flex justify-between text-[10px] mb-[1mm]">
                 <span>Tunai</span>
-                <span>Rp {transaction.payment_received.toLocaleString('id-ID')}</span>
+                <span>{transaction.payment_received.toLocaleString('id-ID')}</span>
               </div>
               {transaction.change !== undefined && transaction.change >= 0 && (
-                <div className="flex justify-between text-xs font-semibold">
+                <div className="flex justify-between text-[10px] font-semibold">
                   <span>Kembali</span>
-                  <span>Rp {transaction.change.toLocaleString('id-ID')}</span>
+                  <span>{transaction.change.toLocaleString('id-ID')}</span>
                 </div>
               )}
             </>
           )}
 
-          <div className="border-b border-dashed border-gray-300 mb-2"></div>
+          <div className="border-b border-dashed border-gray-400 mb-[2mm]"></div>
 
           {/* Footer */}
-          <div className="text-center text-[10px] text-gray-600 mb-2">
+          <div className="text-center text-[9px] text-gray-600 mb-[2mm]">
             <p>Terima Kasih</p>
-            <p>Barang yang dibeli</p>
-            <p>tidak dapat ditukar</p>
+            <p>Barang yang dibeli tidak dapat ditukar</p>
           </div>
+        </div>
         </div>
       </div>
 
