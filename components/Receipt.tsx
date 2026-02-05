@@ -96,7 +96,6 @@ export default function Receipt({ transaction, onClose }: ReceiptProps) {
             <p>Barang yang dibeli tidak dapat ditukar</p>
           </div>
         </div>
-        </div>
       </div>
 
       {/* Screen Only - Print Button */}

@@ -16,25 +16,24 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError('')
-    setLoading(true)
-
-    const { error } = isSignUp
-      ? await signUp(email, password)
-      : await signIn(email, password)
-
-    if (error) {
-      setError(error.message)
-      setLoading(false)
-    } else {
-      if (isSignUp) {
-        setError('Cek email Anda untuk tautan konfirmasi!')
-      } else {
-        router.push('/dashboard')
-      }
-      setLoading(false)
-    }
-  }
+                    setError('')
+                    setLoading(true)
+            
+                    const { error } = isSignUp
+                      ? await signUp(email, password)
+                      : await signIn(email, password)
+            
+                    if (error) {
+                      setError(error.message)
+                      setLoading(false)
+                    } else {
+                      if (isSignUp) {
+                        setError('Cek email Anda untuk tautan konfirmasi!')
+                      } else {
+                        router.push('/dashboard')
+                      }
+                      setLoading(false)
+                    }  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
